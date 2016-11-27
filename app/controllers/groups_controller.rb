@@ -13,12 +13,13 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    find_group_and_check_permission
   end
 
 
   def create
     @group = Group.new(group_params)
-    @group.user = current_user
+    #@group.user = current_user 新删掉
     if @group.save
       redirect_to groups_path
     else
@@ -27,6 +28,7 @@ class GroupsController < ApplicationController
 
   end
   def update
+    find_group_and_check_permission
     if @group.update(group_params)
       redirect_to groups_path, notice: "Update Success"
     else
