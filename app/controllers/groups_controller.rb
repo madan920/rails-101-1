@@ -19,8 +19,9 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    #@group.user = current_user 新删掉
+    @group.user = current_user 新删掉
     if @group.save
+      current_user.join!(@group)
       redirect_to groups_path
     else
       render :new
